@@ -2,7 +2,7 @@
  * WeatherStation.c
  *
  * Created: 2020-04-17 20:21:02
- * Author : sajda
+ * Author : Radosław Sajdak
  */ 
 
 #include <avr/io.h>
