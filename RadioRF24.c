@@ -2,7 +2,7 @@
  * RadioRF24.c
  *
  * Created: 2020-04-17 20:21:53
- *  Author: sajda
+ *  Author: Sajdak Rados≈Çaw
  */ 
 #include "RadioRF24.h"
 
@@ -24,7 +24,7 @@ void rf24_init(uint8_t role,uint8_t channel, uint8_t payload)
 	rf24_write_register(RF_SETUP,0x06);		//0dBm,1mbps
 	rf24_write_register(CONFIG,RF24_CONFIG);
 	rf24_write_register(EN_AA,0x03);
-	rf24_write_register(EN_RX,0x03);		//ZMIENIONE dodane ca≥kiemidk
+	rf24_write_register(EN_RX,0x03);		//ZMIENIONE dodane cakiemidk
 	rf24_write_register(SETUP_RETR,0x4F);
 	rf24_set_addr(role,tx_addr,rx_addr);
 	//rf24_write_register(SETUP_AW,0x03);		//3 bytes address
@@ -77,7 +77,7 @@ void rf24_set_addr(uint8_t role, uint8_t * tx_addr, uint8_t * rx_addr)
 	sbi(RF_PORT,CSN);
 	_delay_us(12);
 	
-	//ZMIENIONE DODANE RX CA£E
+	//ZMIENIONE DODANE RX CAE
 	_delay_us(12);
 	cbi(RF_PORT,CSN);
 	_delay_us(12);
