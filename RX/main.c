@@ -2,7 +2,7 @@
  * WeatherStation.c
  *
  * Created: 2020-04-17 20:21:02
- * Author : Radosław Sajdak
+ * Author : sajda
  */ 
 
 #include <avr/io.h>
@@ -29,7 +29,7 @@ int uart_putchar(char c, FILE *stream){
   return 0;
 }
 
-uint8_t data[4]; //= {0x64,0x0B,0x53,0x11};
+uint8_t data[4] = {0x64,0x0B,0x53,0x11};
 uint8_t ret_code[MAX_BUFF];
 int main(void)
 {
@@ -37,12 +37,26 @@ int main(void)
 	FILE str_uart = FDEV_SETUP_STREAM(uart_putchar, NULL, _FDEV_SETUP_WRITE);
 	stdout = &str_uart;
 	
-	rf24_init(3,2,4);
+	//rf24_init(3,2,4);
+	int transmition_limit = 10;
 	while(1)
 	{	
+	rf24_init(0,2,4);
+	printf("INIT AS TX\n\r");
+	transmition_limit  = 5;
+	while( !(rf24_get_status() & (1 << TX_DS)) && transmition_limit)
+	{
+		 rf24_tx(data,4);
+		 transmition_limit--;
+		
+	}
+	rf24_reset();
+	printf("SENT %d\n\r", (transmition_limit-100)*(-1));
+	rf24_init(1,2,4);
+	printf("INIT AS RX\n\r");
 	rf24_rx(data,4);
-	printf("RESULT: %2X %2X %2X %2X  | STATUS: %x\n\r",data[0], data[1], data[2], data[3], rf24_get_status());
-	_delay_ms(1000);
+	printf("HUMIDITY: %d.%d    TEMP: %d.%d \n\r",data[0], data[1], data[2], data[3]);
+	_delay_ms(5000);
 	}
     /* Replace with your application code */
     while (1) 

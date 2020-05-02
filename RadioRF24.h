@@ -56,6 +56,7 @@
 #define RX_DR		6
 #define RF_ADDR_LEN 5	//must be 3-5
 #define MAX_BUFF    32
+#define TIME_PROTECT 5
 
 
 /************************************************************************/
