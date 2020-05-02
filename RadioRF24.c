@@ -296,26 +296,26 @@ void rf24_reset()
 }
 void rf24_debug()
 {
-	uint8_t fuck_code[1] ;
+	uint8_t debug_code[1] ;
 	
-	rf24_get_register(CONFIG,1,fuck_code);
-	printf("CONFIG: %x\n\r", fuck_code[0]);
-	rf24_get_register(EN_AA,1,fuck_code);
-	printf("EN_AA: %x\n\r", fuck_code[0]);
-	rf24_get_register(EN_RX,1,fuck_code);
-	printf("EN_RX: %x\n\r", fuck_code[0]);
-	rf24_get_register(SETUP_AW,1,fuck_code);
-	printf("SETUP_AW: %x\n\r", fuck_code[0]);
-	rf24_get_register(SETUP_RETR,1,fuck_code);
-	printf("SETUP_RETR: %x\n\r", fuck_code[0]);
-	rf24_get_register(CHANNEL,1,fuck_code);
-	printf("CHANNEL: %x\n\r", fuck_code[0]);
-	rf24_get_register(RF_SETUP,1,fuck_code);
-	printf("RF_SETUP: %x\n\r", fuck_code[0]);
-	rf24_get_register(STATUS,1,fuck_code);
-	printf("STATUS: %x\n\r", fuck_code[0]);
-	rf24_get_register(FIFO_STATUS,1,fuck_code);
-	printf("FIFO_STATUS: %x\n\r", fuck_code[0]);
+	rf24_get_register(CONFIG,1,debug_code);
+	printf("CONFIG: %x\n\r", debug_code[0]);
+	rf24_get_register(EN_AA,1,debug_code);
+	printf("EN_AA: %x\n\r", debug_code[0]);
+	rf24_get_register(EN_RX,1,debug_code);
+	printf("EN_RX: %x\n\r", debug_code[0]);
+	rf24_get_register(SETUP_AW,1,debug_code);
+	printf("SETUP_AW: %x\n\r", debug_code[0]);
+	rf24_get_register(SETUP_RETR,1,debug_code);
+	printf("SETUP_RETR: %x\n\r", debug_code[0]);
+	rf24_get_register(CHANNEL,1,debug_code);
+	printf("CHANNEL: %x\n\r", debug_code[0]);
+	rf24_get_register(RF_SETUP,1,debug_code);
+	printf("RF_SETUP: %x\n\r", debug_code[0]);
+	rf24_get_register(STATUS,1,debug_code);
+	printf("STATUS: %x\n\r", debug_code[0]);
+	rf24_get_register(FIFO_STATUS,1,debug_code);
+	printf("FIFO_STATUS: %x\n\r", debug_code[0]);
 	
 	
 }
