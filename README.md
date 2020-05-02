@@ -13,4 +13,4 @@ We made this project as for part of our education at AGH UST. The main idea is m
 - Arduino UNO for station
     - Will see
 
-![datei](/img/schemeSensor.png)
+![sensor schematic](img/schemeSensor.png)
