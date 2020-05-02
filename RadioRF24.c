@@ -2,7 +2,7 @@
  * RadioRF24.c
  *
  * Created: 2020-04-17 20:21:53
- *  Author: sajda
+ *  Author: Sajdak Rados≈Çaw
  */ 
 #include "RadioRF24.h"
 
@@ -15,22 +15,22 @@ void rf24_init(uint8_t role,uint8_t channel, uint8_t payload)
 	DDRB |= (1<<SCK) | (0<<MISO) | (1<<MOSI) | (1<<CSN) | (1<<CE);
 	sbi(RF_PORT,CSN);
 	//rf24_debug();
-	if (role == 0) temp = 0x5a;	//transmitter 0a
-	else temp = 0x3b; //receiver 0b
-	cbi(RF_PORT,CE);
+	if (role == 0) temp = 0x0a;	//transmitter
+	else temp = 0x0b; //receiver
+
 	rf24_write_register(CHANNEL,channel);
 	rf24_write_register(RX_PW_P0, 0x00);	//ZMIENIONE na 0, bo auto-ack
 	rf24_write_register(RX_PW_P1, payload);	//ZMIENIONE niby data payload pipe
 	rf24_write_register(RF_SETUP,0x06);		//0dBm,1mbps
 	rf24_write_register(CONFIG,RF24_CONFIG);
 	rf24_write_register(EN_AA,0x03);
-	rf24_write_register(EN_RX,0x03);		//ZMIENIONE dodane ca≥kiemidk
+	rf24_write_register(EN_RX,0x03);		//ZMIENIONE dodane cakiemidk
 	rf24_write_register(SETUP_RETR,0x4F);
 	rf24_set_addr(role,tx_addr,rx_addr);
 	//rf24_write_register(SETUP_AW,0x03);		//3 bytes address
 	rf24_flush(FLUSH_RX);
 	rf24_write_register(STATUS,0x70);
-	
+	cbi(RF_PORT,CE);
 	rf24_write_register(CONFIG, temp);
 	_delay_ms(100);
 	//rf24_debug();
@@ -77,7 +77,7 @@ void rf24_set_addr(uint8_t role, uint8_t * tx_addr, uint8_t * rx_addr)
 	sbi(RF_PORT,CSN);
 	_delay_us(12);
 	
-	//ZMIENIONE DODANE RX CA£E
+	//ZMIENIONE DODANE RX CAE
 	_delay_us(12);
 	cbi(RF_PORT,CSN);
 	_delay_us(12);
@@ -191,7 +191,7 @@ _delay_ms(12);
 sbi(RF_PORT,CE);
 _delay_us(20);
 cbi(RF_PORT,CE);
-//while( !(rf24_get_status() & (1 << TX_DS) ));
+//while( (STATUS & ((1 << 5) | (1 << 4))) == 0);
 
 uint8_t check = rf24_get_status();
 if( (check & (1 << 4)) != 0)	printf("Sending Failed!  %x\n\r",check);
@@ -296,26 +296,26 @@ void rf24_reset()
 }
 void rf24_debug()
 {
-	uint8_t fuck_code[1] ;
+	uint8_t debug_code[1] ;
 	
-	rf24_get_register(CONFIG,1,fuck_code);
-	printf("CONFIG: %x\n\r", fuck_code[0]);
-	rf24_get_register(EN_AA,1,fuck_code);
-	printf("EN_AA: %x\n\r", fuck_code[0]);
-	rf24_get_register(EN_RX,1,fuck_code);
-	printf("EN_RX: %x\n\r", fuck_code[0]);
-	rf24_get_register(SETUP_AW,1,fuck_code);
-	printf("SETUP_AW: %x\n\r", fuck_code[0]);
-	rf24_get_register(SETUP_RETR,1,fuck_code);
-	printf("SETUP_RETR: %x\n\r", fuck_code[0]);
-	rf24_get_register(CHANNEL,1,fuck_code);
-	printf("CHANNEL: %x\n\r", fuck_code[0]);
-	rf24_get_register(RF_SETUP,1,fuck_code);
-	printf("RF_SETUP: %x\n\r", fuck_code[0]);
-	rf24_get_register(STATUS,1,fuck_code);
-	printf("STATUS: %x\n\r", fuck_code[0]);
-	rf24_get_register(FIFO_STATUS,1,fuck_code);
-	printf("FIFO_STATUS: %x\n\r", fuck_code[0]);
+	rf24_get_register(CONFIG,1,debug_code);
+	printf("CONFIG: %x\n\r", debug_code[0]);
+	rf24_get_register(EN_AA,1,debug_code);
+	printf("EN_AA: %x\n\r", debug_code[0]);
+	rf24_get_register(EN_RX,1,debug_code);
+	printf("EN_RX: %x\n\r", debug_code[0]);
+	rf24_get_register(SETUP_AW,1,debug_code);
+	printf("SETUP_AW: %x\n\r", debug_code[0]);
+	rf24_get_register(SETUP_RETR,1,debug_code);
+	printf("SETUP_RETR: %x\n\r", debug_code[0]);
+	rf24_get_register(CHANNEL,1,debug_code);
+	printf("CHANNEL: %x\n\r", debug_code[0]);
+	rf24_get_register(RF_SETUP,1,debug_code);
+	printf("RF_SETUP: %x\n\r", debug_code[0]);
+	rf24_get_register(STATUS,1,debug_code);
+	printf("STATUS: %x\n\r", debug_code[0]);
+	rf24_get_register(FIFO_STATUS,1,debug_code);
+	printf("FIFO_STATUS: %x\n\r", debug_code[0]);
 	
 	
 }
