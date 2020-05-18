@@ -1,40 +1,47 @@
+/*
+ * Weather station sensor - DHT11
+ * Created: 2020-04-17 20:21:02
+ * Author : Sajdak Radoslaw
+ * Description: Custom library for DHT11 sensor
+ */ 
 #include "DHT11.h"
-
 
 void dht11_read(uint8_t * data)
 {
-	unsigned int test_l[40] ;
-	unsigned int test_h[40] ;
+	unsigned int test_low[40] ;
+	unsigned int test_high[40] ;
 	uint8_t checksum = 0;
+	
 	for (int i = 0; i !=40; i++)
 	{
-		test_h[i] = 0;
-		test_l[i] = 0;
+		test_high[i] = 0;
+		test_low[i] = 0;
 	}
 	/** Start read signal **/
 	sbi(DHT11_DDR,DHT11_NUM);		
 	cbi(DHT11_PORT,DHT11_NUM);
+	
 	_delay_ms(18);
 	cbi(DHT11_DDR,DHT11_NUM);
 	_delay_us(40);
 	
-	/** Read output **/
+	/** Read data from DHT11**/
 	for (uint8_t i = 0; i != 40; i++)
 	{
 		
 		//** Reading data procedure **/
 		while(!( DHT11_PIN & 0x01))
 		{
-			test_l[i] += 1;		//16 cycles of clock = 1us
+			test_low[i] += 1;		//16 cycles of clock = 1us
 		}
 		while( (DHT11_PIN & 0x01) )
 		{
-			test_h[i] += 1;		//16 cycles of clock = 1us
+			test_high[i] += 1;		//16 cycles of clock = 1us
 		}
 		
 		//** Encode Humidity integral **//
 		if(i <= 8 && i > 0){
-			if (test_h[i] < 40)
+			if (test_high[i] < 40)
 			{
 				data[0] <<= 1;
 			}
@@ -47,7 +54,7 @@ void dht11_read(uint8_t * data)
 		//** Encode Humidity decimal **//
 		if (i > 8 && i <= 16)
 		{
-			if (test_h[i] < 40)
+			if (test_high[i] < 40)
 			{
 				data[1] <<= 1;
 			}
@@ -60,7 +67,7 @@ void dht11_read(uint8_t * data)
 		//** Encode Temperature integral **//
 		if (i >16 && i <= 24)
 		{
-			if (test_h[i] < 40)
+			if (test_high[i] < 40)
 			{
 				data[2] <<= 1;
 			}
@@ -73,7 +80,7 @@ void dht11_read(uint8_t * data)
 		//** Encode Temperature decimal **//
 		if (i > 24 && i <= 32)
 		{
-			if (test_h[i] < 40)
+			if (test_high[i] < 40)
 			{
 				data[3] <<= 1;
 			}
@@ -86,7 +93,7 @@ void dht11_read(uint8_t * data)
 		//** Encode checksum **//
 		if (i > 32 && i <= 40)
 		{
-			if (test_h[i] < 40)
+			if (test_high[i] < 40)
 			{
 				checksum <<= 1;
 			}
@@ -98,15 +105,6 @@ void dht11_read(uint8_t * data)
 		}
 		
 	}
-	
-	//** Verify checksum **//
-	//if (checksum < 31)
-	//{
-	//	data[0] = -127;
-	//	data[1] = -127;
-	//	data[2] = -127;
-	//	data[3] = -127;
-	//}
 	_delay_ms(100);
 	
 	sbi(DHT11_DDR,DHT11_NUM);

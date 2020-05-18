@@ -1,17 +1,17 @@
 /*
- * DHT11.h
- *
- * Created: 2020-04-24 01:34:13
- *  Author: Sajdak Rados³aw
+ * Weather station sensor - DHT11
+ * Created: 2020-04-17 20:21:02
+ * Author : Sajdak Radoslaw
+ * Description: Custom library for DHT11 sensor
  */ 
 
 
 #ifndef DHT11_H_
 #define DHT11_H_
 
+#define F_CPU 16000000UL
 #include "avr/io.h"
 #include <stdlib.h>
-#define F_CPU 16000000UL
 #include <util/delay.h>
 #include <stdio.h>
 
@@ -32,6 +32,8 @@
 
 /************************************************************************/
 /* @brief	Initialize device to read analog input
+/* 
+/* @param[in] uint8_t data pointer
 /************************************************************************/
 void dht11_read(uint8_t * data);
 

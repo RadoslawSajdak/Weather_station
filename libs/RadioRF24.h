@@ -1,17 +1,20 @@
 /*
- * nRF24L01 library
- *
- * 
- * 17.04.2020 Rados³aw Sajdak
+ * Weather station sensor - Radio module
+ * Created: 2020-04-17 20:21:02
+ * Author : Sajdak Radoslaw
+ * Description: Custom library for nRF24L01 radio
+ * Features: Radio communication, SPI
  */ 
 #ifndef RADIORF24_H_
 #define RADIORF24_H_
 
+
+#define F_CPU 16000000UL
 #include "avr/io.h"
 #include <stdlib.h>
-#define F_CPU 16000000UL
 #include <util/delay.h>
 #include <stdio.h>
+
 
 #ifndef cbi
 #define cbi(sfr, bit)     (_SFR_BYTE(sfr) &= ~_BV(bit))
@@ -20,14 +23,17 @@
 #define sbi(sfr, bit)     (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 
+/** Defines similar to device documentation **/
 
+/** PORT B pins **/
 #define CE		1
-#define SCK		5
-#define MISO	4		//Port B pins
-#define MOSI	3
 #define CSN		2
+#define MOSI	3
+#define MISO	4
+#define SCK		5
 #define RF_PORT PORTB
 
+/** nRF24 registers **/
 #define CONFIG		0x00
 #define EN_AA		0x01
 #define EN_RX		0x02
@@ -50,10 +56,11 @@
 #define FLUSH_TX	0xE1
 #define FLUSH_RX	0xE2
 
+/** nrF24 configuration values **/
 #define RF24_CONFIG		8
 #define TX_DS			5
 #define RX_DR			6
-#define RF_ADDR_LEN		5	//must be 3-5
+#define RF_ADDR_LEN		5	
 #define MAX_BUFF		32
 #define TIME_PROTECT	5
 
