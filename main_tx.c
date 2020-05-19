@@ -14,7 +14,7 @@
 
 void init_UART(void)
 {
-  //Set baud rate 115200
+  //Set baud rate as 115200
   UBRR0H = 0;
   UBRR0L = 16;
   //Enable receiver and transmitter
