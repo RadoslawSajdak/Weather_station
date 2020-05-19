@@ -18,5 +18,6 @@ Sensor include 2 libraries: DHT11 and rf24. First is just for reading DHT11 data
 In our example, for TX mode all interrupts are masked. But you still can check if it occurs in get_status(). For RX mode only RX interrupt is enabled.
 ### Connections scheme 
 ![sensor schematic](img/schemeSensor.png)
+![sensor schematic](img/main station-1.png)
 ### Sensor procedure
 ![sensor procedure](img/SensorDiagram.png)
