@@ -82,7 +82,8 @@ void menu_screen_alarm2(uint8_t *state, uint8_t *substate, struct Time *time){
 
 void menu_screen_temperature3(uint8_t *state, uint8_t *substate){ 
 	cli();
-	lcd_display_samples(12.4,89.55,34.44,99.98);
+	
+	lcd_display_samples(state[0],state[2],substate[0],substate[2]);
 	_delay_ms(100);
 	sei();
 }
