@@ -44,8 +44,9 @@ void menu_screen_alarm2(uint8_t *state, uint8_t *substate, struct Time *time);
 
  @param[in] state and substate - pointers to variable changed by interrupt
 	it is used to change screen and interact with device
+ @param[in] struct - values from sensors
 ************************************************************************/
-void menu_screen_temperature3(uint8_t *state, uint8_t *substate);
+void menu_screen_temperature3(uint8_t *state, uint8_t *substate, struct Sensor *inside, struct Sensor *outside);
 
 /************************************************************************
  @brief Used to set default values between states

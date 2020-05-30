@@ -99,30 +99,34 @@ uint8_t lcd_create_char(uint8_t *bit_matrix){
 	return icon-1;
 }
 
+void lcd_write_int(int value){
+	
+	char buffor[16];
+	itoa(value,buffor,10);
+	lcd_write_text(buffor);
+	
+}
+
 void lcd_write_float(float value){
 
-	char buffor1[16];
 	int part_int = (int)value;
 	
 	int part_float = (int) (value*10.0);
 	part_float = abs(part_float%10);
 	
-	itoa(part_int,buffor1,10);
-	
 	if (abs(part_int)<10)	lcd_write_text("0");
-	lcd_write_text(buffor1);
+	lcd_write_int(part_int);
 	
-	itoa(part_float,buffor1,10);
 	if(part_float){
 		lcd_write_text(".");
-		lcd_write_text(buffor1);
+		lcd_write_int(part_float);
 	}
 	
 }
 
 
 /******************************* SPECJALIZED ********************/
-void lcd_display_samples (float temp_out, float humidity_out, float temp_in, float humidity_in){
+void lcd_display_sensor (struct Sensor *inside, struct Sensor *outside){
 	
 	icon = 0;		//overwrite all custom icon
 	uint8_t bits_drop[8] = {0x04,0x04,0x0A,0x0A,0x11,0x11,0x0E,0x00};		//store custom icon bits
@@ -141,30 +145,35 @@ void lcd_display_samples (float temp_out, float humidity_out, float temp_in, flo
 	
 	lcd_set_position(0,0);
 	lcd_write_data(icon_thermo);
-	if (temp_out<0) lcd_write_text("-"); else lcd_write_text("+");
-	lcd_write_float(temp_out);
+	if (inside->temp_int<0) lcd_write_text("-"); else lcd_write_text("+");
+	lcd_write_sample(outside->temp_int, outside->temp_fractal);
 	lcd_write_text("C");
 	lcd_set_position(0,7);
 	lcd_write_data(icon_sun1);
 	lcd_write_data(icon_sun2);
 	lcd_set_position(0,10);
-	lcd_write_float(humidity_out);
+	lcd_write_sample(outside->humidity_int, outside->humidity_fractal);
 	lcd_write_text("%");
 	lcd_write_data(icon_drop);
 	
 	lcd_set_position(1,0);
 	
 	lcd_write_data(icon_thermo);
-	if (temp_in<0) lcd_write_text("-"); else lcd_write_text("+");
-	lcd_write_float(temp_in);
+	if (outside->temp_int<0) lcd_write_text("-"); else lcd_write_text("+");
+	lcd_write_sample(inside->temp_int, inside->temp_fractal);
 	lcd_write_text("C");
 	lcd_set_position(1,7);
 	lcd_write_data(icon_house1);
 	lcd_write_data(icon_house2);
 	lcd_set_position(1,10);
-	lcd_write_float(humidity_in);
+	lcd_write_sample(inside->humidity_int, inside->humidity_fractal);
 	lcd_write_text("%");
 	lcd_write_data(icon_drop);
 
 }
 
+void lcd_write_sample (uint8_t value_int, uint8_t value_fractal){
+	lcd_write_int(value_int);
+	lcd_write_text(".");
+	lcd_write_int(value_fractal);
+}

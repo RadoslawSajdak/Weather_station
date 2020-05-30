@@ -30,6 +30,14 @@
 
 #define MAX_TIMINGS	85
 
+
+typedef struct Sensor{
+	uint8_t temp_int;
+	uint8_t temp_fractal;
+	uint8_t humidity_int;
+	uint8_t humidity_fractal;
+};
+
 /************************************************************************/
 /* @brief	Initialize device to read analog input
 /* 
@@ -37,6 +45,6 @@
 /************************************************************************/
 void dht11_read(uint8_t * data);
 
-
+void dht11_conversion(uint8_t * data, struct Sensor * converted);
 
 #endif /* DHT11_H_ */

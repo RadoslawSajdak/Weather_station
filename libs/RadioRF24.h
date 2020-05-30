@@ -134,7 +134,7 @@ void rf24_debug();
 /*
 /* @return	Array with received data
 /************************************************************************/   
-void rf24_rx(uint8_t * data, uint8_t number_to_receive);
+void rf24_rx(uint8_t * data, uint8_t number_to_receive, uint8_t * lcd_state);
 /************************************************************************/
 /* @brief	Function for flushing RX/TX fifo
 /*

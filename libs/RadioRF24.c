@@ -196,7 +196,7 @@ void rf24_tx(uint8_t * bufer, uint8_t len)
 
 }
 
-void rf24_rx(uint8_t * data, uint8_t number_to_receive)
+void rf24_rx(uint8_t * data, uint8_t number_to_receive, uint8_t * lcd_state)
 {
 	
 	_delay_ms(10);
@@ -204,7 +204,7 @@ void rf24_rx(uint8_t * data, uint8_t number_to_receive)
 	_delay_us(50);
 
 	/** Wait for data in fifo **/
-	while( !(rf24_get_status() & (1 << RX_DR)));
+	while( !(rf24_get_status() & (1 << RX_DR)) & (lcd_state[0] == 3));
 	_delay_ms(10);
 	cbi(RF_PORT,CE);
 	_delay_us(50);
