@@ -23,7 +23,7 @@ We made this project as for part of our education at AGH UST. The main idea is m
     - Real time clock module with DS3231
 
 ## Sensor
-Sensor include 2 libraries: DHT11 and rf24. First is just for reading DHT11 data and contain only one function. To read this data you should put into function 4 elements array. Function will overwrite elements. rf24.h include many functions but for simple use you'll need only read, get_status and init. Don't forget - in init function you **must** have the same channel and payload for transceiver and receiver. In other way, you'll be not able to send data between devices.   
+Sensor include 2 libraries: DHT11 and rf24. First is just for reading DHT11 data and save this data in structure. To read this data you should put into function 4 elements array. Function will overwrite elements. rf24.h include many functions but for simple use you'll need only read, get_status and init. Don't forget - in init function you **must** have the same channel and payload for transceiver and receiver. In other way, you'll be not able to send data between devices.   
 
 In our example, for TX mode all interrupts are masked. But you still can check if it occurs in get_status(). For RX mode only RX interrupt is enabled.
 
@@ -33,6 +33,8 @@ Station consist of LCD, RTC module and expander with buttons. For each element w
 
 ### Connections scheme 
 ![sensor schematic](img/schemeSensor.png)
-![sensor schematic](img/main station-1.png)
+![station schematic](img/schemeStation.png)
 ### Sensor procedure
 ![sensor procedure](img/SensorDiagram.png)
+### Station procedure
+![station procedure](img/StationDiagram.png)

@@ -177,11 +177,9 @@ void rf24_tx(uint8_t * bufer, uint8_t len)
 	_delay_us(12);
 	for (int i = 0 ; i < len; i++)
 	{
-		printf("%X ",bufer[i]);
 		spi_transfer(bufer[i]);
 		_delay_us(12);
 	}
-	printf("\n\r");
 	_delay_us(12);
 	sbi(RF_PORT,CSN);
 	_delay_us(12);
@@ -296,7 +294,7 @@ void rf24_reset()
 	sbi(RF_PORT,CSN);
 	_delay_us(12);
 }
-void rf24_debug()
+/*void rf24_debug()
 {
 	uint8_t debug_code[1] ;
 	
@@ -318,6 +316,5 @@ void rf24_debug()
 	printf("STATUS: %x\n\r", debug_code[0]);
 	rf24_get_register(FIFO_STATUS,1,debug_code);
 	printf("FIFO_STATUS: %x\n\r", debug_code[0]);
-	
-	
 }
+*/

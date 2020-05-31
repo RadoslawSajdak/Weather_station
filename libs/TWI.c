@@ -28,35 +28,3 @@ void twi_stop(){
 	while (!(TWCR&(1<<TWSTO))){};
 	_delay_ms(20);
 }
-
-// 
-// void twi_tx(uint8_t adress, uint8_t *data, uint8_t amount, bool stop){
-// 	twi_start();
-// 
-// 	twi_write_byte((adress<<1));				//0 at end of address - master transmiter
-// 
-// 	for (int n=0; n<amount; n++)				//iterate data
-// 	{
-// 		twi_write_byte(*data);
-// 		data++;
-// 	}
-// 
-// 	if (stop) twi_stop();
-// 
-// }
-// 
-// void twi_rx(uint8_t adress, uint8_t *data, uint8_t amount, bool stop){
-// 	twi_start();
-// 	
-// 	twi_write_byte((adress<<1)+1);				//1 at end of address - master receiver
-// 	
-// 	for (int n=0; n<(amount-1); n++){
-// 		*data=twi_read_byte(0);
-// 		data++;
-// 	}
-// 	
-// 	*data=twi_read_byte(1);						//send ACK at end
-// 	
-// 	if (stop) twi_stop();
-// 	
-// }

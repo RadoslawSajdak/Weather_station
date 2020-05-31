@@ -1,10 +1,3 @@
-/*
- * RTC.c
- *
- * Created: 01.05.2020 01:00:16
- *  Author: Acer
- */ 
-
 #include "RTC.h"
 
 

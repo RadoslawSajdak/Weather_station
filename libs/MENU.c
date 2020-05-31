@@ -1,9 +1,3 @@
-/*
- * MENU.c
- *
- * Created: 03.05.2020 00:32:36
- *  Author: Acer
- */ 
 #include "MENU.h"
 // typedef struct Sensor{
 // 	uint8_t temp_int;
