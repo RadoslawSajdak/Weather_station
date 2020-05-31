@@ -1,11 +1,10 @@
-/*
- * MENU.c
- *
- * Created: 03.05.2020 00:32:36
- *  Author: Acer
- */ 
 #include "MENU.h"
-
+// typedef struct Sensor{
+// 	uint8_t temp_int;
+// 	uint8_t temp_fractal;
+// 	uint8_t humidity_int;
+// 	uint8_t humidity_fractal;
+// };
 void menu_screen_time1(uint8_t *state, uint8_t *substate, struct Time *time, struct Date *date){
 	_delay_ms(100);
 	cli();
@@ -13,20 +12,20 @@ void menu_screen_time1(uint8_t *state, uint8_t *substate, struct Time *time, str
 	
 	rtc_read_time(time,RTC_SEC);
 	_delay_ms(10);
-	lcd_write_float(time->h);
+	lcd_write_int(time->h);
 	lcd_write_text(":");
-	lcd_write_float(time->min);
+	lcd_write_int(time->min);
 	lcd_write_text(":");
-	lcd_write_float(time->sec);
+	lcd_write_int(time->sec);
 	
 	lcd_set_position(1,3);
 	rtc_read_date(date);
 	_delay_ms(10);
-	lcd_write_float(date->day);
+	lcd_write_int(date->day);
 	lcd_write_text(".");
-	lcd_write_float(date->month);
+	lcd_write_int(date->month);
 	lcd_write_text(".20");
-	lcd_write_float(date->year);
+	lcd_write_int(date->year);
 	sei();
 }
 
@@ -39,9 +38,9 @@ void menu_screen_alarm2(uint8_t *state, uint8_t *substate, struct Time *time){
 	lcd_set_position(1,6);
 	rtc_read_time(time,RTC_ALARM_VALUE);
 	_delay_ms(10);
-	lcd_write_float(time->h);
+	lcd_write_int(time->h);
 	lcd_write_text(":");
-	lcd_write_float(time->min);
+	lcd_write_int(time->min);
 	sei();
 	
 	while (*substate!=1){			//sub menu	-alarm changing
@@ -50,9 +49,9 @@ void menu_screen_alarm2(uint8_t *state, uint8_t *substate, struct Time *time){
 		lcd_set_position(1,6);
 		rtc_read_time(time,RTC_ALARM_VALUE);
 		
-		lcd_write_float(time->h);
+		lcd_write_int(time->h);
 		lcd_write_text(":");
-		lcd_write_float(time->min);
+		lcd_write_int(time->min);
 		if (*substate==2){		//set minutes
 			lcd_set_position(0,6);
 			lcd_write_text("   MM");
@@ -80,9 +79,9 @@ void menu_screen_alarm2(uint8_t *state, uint8_t *substate, struct Time *time){
 	rtc_alarm_on();
 }
 
-void menu_screen_temperature3(uint8_t *state, uint8_t *substate){ 
+void menu_screen_temperature3(uint8_t *state, uint8_t *substate, struct Sensor *inside, struct Sensor *outside){ 
 	cli();
-	lcd_display_samples(12.4,89.55,34.44,99.98);
+	lcd_display_sensor(inside, outside);
 	_delay_ms(100);
 	sei();
 }

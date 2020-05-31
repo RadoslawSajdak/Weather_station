@@ -30,13 +30,32 @@
 
 #define MAX_TIMINGS	85
 
+
+typedef struct Sensor{
+	uint8_t temp_int;
+	uint8_t temp_fractal;
+	uint8_t humidity_int;
+	uint8_t humidity_fractal;
+};
+
 /************************************************************************/
 /* @brief	Initialize device to read analog input
 /* 
-/* @param[in] uint8_t data pointer
+/* @param[in]	uint8_t pointer to stored data
 /************************************************************************/
 void dht11_read(uint8_t * data);
 
-
+/************************************************************************/
+/* @brief	Data conversion to structure Sensor. It's need because DHT11
+/*			returns 4 elements array with int data while MENU.h needs 	
+/*			data as float
+/*
+/* @param[in]	pointer to array with data read from dht11_read function
+/*				or 4 elements array with humidity_int, humidity_fractal,
+/*				temp_int, temp_fractal in turn
+/* @param[in]	pointer to structcture type Sensor. It will place here
+/*				converted data in form friendly for MENU.h
+/***********************************************************************/
+void dht11_conversion(uint8_t * data, struct Sensor * converted);
 
 #endif /* DHT11_H_ */

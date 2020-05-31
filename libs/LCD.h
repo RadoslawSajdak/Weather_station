@@ -20,6 +20,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "TWI.h"
+#include "DHT11.h"
 #include <stdbool.h>
 #include <avr/interrupt.h>
 
@@ -85,8 +86,6 @@
 	#define LCD_FS_5X7CHAR			0X00
 #define LCD_CG_RAM_SET			0X40
 #define LCD_DD_RAM_SET			0X80
-/***********************************************************************/
-
 
 
 /************************************************************************
@@ -146,6 +145,12 @@ void lcd_set_position(uint8_t row , uint8_t collumn);
 ************************************************************************/
 uint8_t lcd_create_char(uint8_t *character);
 
+/************************************************************************
+ @brief Print int
+
+ @param[in] Value to print
+************************************************************************/
+void lcd_write_int(int value);
 
 /************************************************************************
  @brief Print float value on LCD - up to 1/100
@@ -157,8 +162,16 @@ void lcd_write_float(float value);
 /************************************************************************
  @brief Print sensor value
 
- @param[in] temperature outside/inside humidity outside/inside
+ @param[in] temperature outside/inside humidity outside/inside in struct
 ************************************************************************/
-void lcd_display_samples (float temp_out, float humidity_out, float temp_in, float humidity_in);
+void lcd_display_sensor (struct Sensor *inside, struct Sensor *outside);
+
+/************************************************************************
+ @brief Specialized function - if one sample is held in two int-variables
+
+ @param[in] int part and fractal part
+************************************************************************/
+void lcd_write_sample (uint8_t value_int, uint8_t value_fractal);
+
 
 #endif  /*LCD_H_*/ 

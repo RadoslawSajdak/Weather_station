@@ -110,3 +110,13 @@ void dht11_read(uint8_t * data)
 	sbi(DHT11_DDR,DHT11_NUM);
 	sbi(DHT11_PORT,DHT11_NUM);
 }
+
+
+
+void dht11_conversion(uint8_t * data, struct Sensor * converted)
+{
+	converted->humidity_int = data[0];
+	converted->humidity_fractal = data[1];
+	converted->temp_int = data[2];
+	converted->temp_fractal = data[3];
+}

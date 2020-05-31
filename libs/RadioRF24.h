@@ -122,9 +122,9 @@ void rf24_tx(uint8_t * buffer, uint8_t len);
 uint8_t rf24_get_status(void);
 
 /************************************************************************/
-/* @brief Function for read all registers with UART
+/* @brief Function for read all registers with UART 
 /************************************************************************/
-void rf24_debug();
+//void rf24_debug();
 
 /************************************************************************/
 /* @brief	Function for reading RX payload
@@ -134,7 +134,7 @@ void rf24_debug();
 /*
 /* @return	Array with received data
 /************************************************************************/   
-void rf24_rx(uint8_t * data, uint8_t number_to_receive);
+void rf24_rx(uint8_t * data, uint8_t number_to_receive, uint8_t * lcd_state);
 /************************************************************************/
 /* @brief	Function for flushing RX/TX fifo
 /*

@@ -4,5 +4,6 @@
 
 *.cproj
 
-Debug/
+receiver/
 
+transmitter/
