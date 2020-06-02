@@ -26,6 +26,7 @@ uint8_t ret_code[MAX_BUFF];
 
 void read_sensor();
 
+
 int main(void)
 {	
 	lcd_init();
@@ -36,7 +37,16 @@ int main(void)
 	struct Date date;
 	struct Sensor inside_sensor;
 	struct Sensor outside_sensor;
-		
+	/** //Setting up date 		
+	time.h=12;
+	time.min=34;
+	time.sec=0;
+	rtc_set_time(&time, RTC_SEC);
+	date.day=2;
+	date.month=6;
+	date.year=20;
+	rtc_set_date(&date);
+	**/
 	//** Initialize data for sensors **//
 	read_sensor();
 	dht11_conversion(data_outdoor,&outside_sensor);
