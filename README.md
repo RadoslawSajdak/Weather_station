@@ -38,3 +38,7 @@ Station consist of LCD, RTC module and expander with buttons. For each element w
 ![sensor procedure](img/SensorDiagram.png)
 ### Station procedure
 ![station procedure](img/StationDiagram.png)
+### Results
+![result](img/result.jpg)  
+![sensor](img/sensor.jpg)  
+![station](img/station.jpg)

@@ -103,6 +103,7 @@ void lcd_write_int(int value){
 	
 	char buffor[16];
 	itoa(value,buffor,10);
+	if (value<10)	lcd_write_text("0");
 	lcd_write_text(buffor);
 	
 }
